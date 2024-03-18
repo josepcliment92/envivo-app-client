@@ -21,7 +21,6 @@ function AuthWrapper(props) {
         "http://localhost:5005/api/auth/verify",
         { headers: { authorization: `Bearer ${storedToken}` } }
       );
-
       //si el token es válido, permitimos acceso
       setIsLoggedIn(true);
       setLoggedUserId(response.data._id);
