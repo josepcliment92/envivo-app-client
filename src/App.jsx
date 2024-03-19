@@ -1,6 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Footer from "./components/Footer"
 import Home from "./pages/Home";
 import Festivales from "./pages/Festivales";
 import DetallesFestival from "./pages/DetallesFestival";
@@ -12,12 +12,12 @@ import Perfil from "./pages/Perfil";
 import QuienesSomos from "./pages/QuienesSomos";
 import Contacto from "./pages/Contacto";
 import NotFound from "./pages/NotFound";
-import Error from "./pages/Error";
+import MainNavbar from "./components/Navbar";
 
 function App() {
   return (
     <div>
-      <Navbar />
+      <MainNavbar />
 
       <div>
       <Routes>
@@ -34,6 +34,8 @@ function App() {
         <Route path={"*"} element={ <NotFound /> } /> 
       </Routes>
       </div>
+
+      <Footer />
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 
-function isPrivate() {
+function IsPrivate() {
   return (
-    <div>isPrivate</div>
+    <div>IsPrivate</div>
   )
 }
 
-export default isPrivate
+export default IsPrivate
