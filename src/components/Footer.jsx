@@ -14,10 +14,10 @@ function Footer() {
     >
       <Container style={{ display: "flex", justifyContent: "flex-end"}}>
         <Nav>
-          <Link to={"/"} style={{ margin: "5px", color: "white" }}>
+          <Link to={"/contacto"} style={{ margin: "5px", color: "white" }}>
             Contacto
           </Link>
-          <Link to={"/festivales"} style={{ margin: "5px", color: "white"  }}>
+          <Link to={"/quienes-somos"} style={{ margin: "5px", color: "white"  }}>
             Quienes somos
           </Link>
         </Nav>
