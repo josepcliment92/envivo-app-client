@@ -2,12 +2,16 @@ import React from "react";
 import Button from "react-bootstrap/esm/Button";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
+import { useContext } from "react"
+import { AuthContext } from "../../context/auth.context"
 
 function CartaDetalleFestival(props) {
   const festival = props.festival;
   let campingFestival = "";
   const separarArrayArtistas = festival["artists"].join(", ");
   const separarGeneros = festival["genres"].join(", ");
+
+  const { userRole } = useContext(AuthContext)
 
   if (festival["campingArea"] === true) {
     campingFestival = "Sí 🏕️";
@@ -61,9 +65,11 @@ function CartaDetalleFestival(props) {
           </Card.Text>
         </Card.Body>
       </Card>
-      <Button> Añadir a favoritos </Button> {/*Este botón debería ser visible solo para user y admin*/}
-      <Link to={`/festivales/edicion-festival/${festival._id}`}> 
-      <Button> Editar Festival </Button> {/*Este botón debería ser visible solo para admin*/}
+      <Button> Añadir a favoritos </Button>{" "}
+      {/*Este botón debería ser visible solo para user y admin*/}
+      <Link to={`/festivales/edicion-festival/${festival._id}`}>
+        {userRole === "admin" ? <Button> Editar Festival </Button> : null}
+        {/*Este botón debería ser visible solo para admin*/}
       </Link>
     </div>
   );

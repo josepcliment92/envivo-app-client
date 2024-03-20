@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import service from "../../services/config.services";
 import Form from "react-bootstrap/Form";
-import { FloatingLabel, FormGroup } from "react-bootstrap";
+import { FormGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import genresArr from "../../utils/genresArr";
 import citiesArr from "../../utils/ citiesArr";
@@ -15,13 +15,28 @@ function FormFestivales() {
   const [endDate, setEndDate] = useState("");
   const [city, setCity] = useState("");
   const [region, setRegion] = useState("");
-  const [artists, setArtists] = useState([]);
+  const [artists, setArtists] = useState("");
   const [genres, setGenres] = useState([]);
   const [minPrize, setMinPrize] = useState(0);
   const [campingArea, setCampingArea] = useState(false);
   const [extraInfo, setExtraInfo] = useState("");
 
   const navigate = useNavigate();
+
+  const handleGenre = (e) => {
+    console.log(e.target.value);
+    const genreToAdd = e.target.value;
+    let genresStateClone = JSON.parse(JSON.stringify(genres));
+
+    if (genresStateClone.includes(genreToAdd)) {
+      let repeatedGenreIndex = genresStateClone.indexOf(genreToAdd);
+      genresStateClone.splice(repeatedGenreIndex, 1);
+    } else {
+      genresStateClone.push(genreToAdd);
+    }
+
+    setGenres(genresStateClone);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +48,7 @@ function FormFestivales() {
       endDate: endDate,
       city: city,
       region: region,
-      artists: artists.split(",").map(genre => genre.trim()),
+      artists: artists.split(",").map((genre) => genre.trim()),
       genres: genres,
       minPrize: minPrize,
       campingArea: campingArea,
@@ -43,11 +58,11 @@ function FormFestivales() {
     service
       .post("/festivales", newFestival)
       .then((response) => {
-        //console.log(response.data) --> cambiar la response en backend para que me de el Id del festival que acabo de crear. ¿cómo?
-        navigate(`/festivales/detalle/${response.data._id}`);
+        //console.log(response.data) //--> cambiar la response en backend para que me de el Id del festival que acabo de crear. ¿cómo?
+        navigate(`/festivales/detalle/${response.data}`);
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
@@ -99,7 +114,9 @@ function FormFestivales() {
             onChange={(e) => setCity(e.target.value)}
           >
             {citiesArr.map((eachCity) => (
-              <option key={eachCity} value={eachCity}>{eachCity}</option>
+              <option key={eachCity} value={eachCity}>
+                {eachCity}
+              </option>
             ))}
           </Form.Select>
         </FormGroup>
@@ -153,7 +170,7 @@ function FormFestivales() {
                 id={`${eachGenre}`}
                 label={`${eachGenre}`}
                 value={eachGenre}
-                onClick={(e) => setGenres(e.target.value)}
+                onClick={handleGenre}
               />
             </div>
           ))}

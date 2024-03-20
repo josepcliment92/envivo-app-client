@@ -1,9 +1,7 @@
 import React from 'react'
 
 function ReseñasSeccion() {
-  return (
-    <div>ReseñasSeccion</div>
-  )
+  return 
 }
 
 export default ReseñasSeccion

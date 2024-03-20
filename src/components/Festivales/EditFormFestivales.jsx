@@ -2,11 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import service from "../../services/config.services";
-import Button from "react-bootstrap/esm/Button";
+import Form from "react-bootstrap/Form";
+import { FormGroup } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import genresArr from "../../utils/genresArr";
+import citiesArr from "../../utils/ citiesArr";
 
 function EditFormFestivales(props) {
-  const festival = props.festival; // esto hay que ajustarlo, en la página EditarFestival hay que pasar la información del festival a este componente 
-  console.log(festival)
+  const festival = props.festival;
   const navigate = useNavigate();
 
   const [name, setName] = useState(festival.name);
@@ -54,7 +57,8 @@ function EditFormFestivales(props) {
         navigate("/")
     })
     .catch((err) => {
-        navigate("*")
+        console.log(err)
+      //navigate("*")
     })
   }
 
@@ -94,8 +98,17 @@ function EditFormFestivales(props) {
   };
 
   const handleGenres = (e) => {
+    console.log(e.target.value);
     let inputValue = e.target.value;
-    setGenres(inputValue);
+    let genresStateClone = JSON.parse(JSON.stringify(genres));
+
+    if (genresStateClone.includes(inputValue)) {
+      let repeatedInputValue = genresStateClone.indexOf(inputValue);
+      genresStateClone.splice(repeatedInputValue, 1);
+    } else {
+      genresStateClone.push(inputValue);
+    }
+    setGenres(genresStateClone);
   };
 
   const handleMinPrize = (e) => {
@@ -135,10 +148,10 @@ function EditFormFestivales(props) {
         </FormGroup>
 
         <FormGroup>
-          <Form.Label>Fecha de inicio</Form.Label>
+          <Form.Label>Fecha de inicio</Form.Label> 
           <Form.Control
             type="date"
-            value={startDate}
+            value={startDate} //quiero que aparezca ya puesta la fecha del festival, de primeras
             onChange={handleStartDate}
           />
         </FormGroup>
@@ -147,7 +160,7 @@ function EditFormFestivales(props) {
           <Form.Label>Fecha de fin</Form.Label>
           <Form.Control
             type="date"
-            value={endDate}
+            value={endDate} //quiero que aparezca ya puesta la fecha del festival, de primeras
             onChange={handleEndDate}
           />
         </FormGroup>
@@ -213,7 +226,7 @@ function EditFormFestivales(props) {
               <Form.Check
                 type="checkbox"
                 id={`${eachGenre}`}
-                label={`${eachGenre}`}
+                label={`${eachGenre}`} //quiero que aquí aparezcan de primeras marcados los géneros que ya estaban seleccionados
                 value={eachGenre}
                 onClick={handleGenres}
               />
@@ -256,7 +269,7 @@ function EditFormFestivales(props) {
       <Button
               variant="danger"
               size="lg"
-              onClick={(e) => handleDelete(festival._id)}
+              onClick={(e) => handleDelete(festival)}
             >
               Borrar festival
             </Button>

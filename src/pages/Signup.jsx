@@ -28,7 +28,7 @@ function Signup() {
 
     try {
       await service.post("/auth/signup", newUser);
-      navigate("/login")
+      navigate("/acceso")
 
     } catch (error) {
         let errorCode = error.response.status

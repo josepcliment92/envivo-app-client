@@ -1,11 +1,12 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import service from "../services/config.services";
+import { AuthContext } from "../context/auth.context";
 
 function Login() {
 
-    const navigate = useNavigate();
+  const { authenticateUser } = useContext(AuthContext)  
+  const navigate = useNavigate();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -40,6 +41,7 @@ function Login() {
         navigate("/perfil") //DECIDIR a qué página quiero redireccionar después del login
 
       } catch (error) {
+        console.log(error)
         let errorCode = error.response.status
         let errorMessage = error.response.data.message
         if (errorCode = 400) {
