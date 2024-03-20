@@ -6,6 +6,7 @@ import { TailSpin } from "react-loader-spinner";
 import CartaFestival from "../components/Festivales/CartaFestival";
 import BuscadorFestivales from "../components/Festivales/BuscadorFestivales"
 import Button from "react-bootstrap/esm/Button";
+import { Link } from "react-router-dom";
 
 function Festivales() {
   const [festivales, setFestivales] = useState(null);
@@ -35,6 +36,7 @@ function Festivales() {
     <div>
       <h2>Festivales</h2>
       <BuscadorFestivales />
+      
       <div> {festivales.map((eachFestival) => {
         return (
           <div key={eachFestival["_id"]}> 
@@ -43,6 +45,9 @@ function Festivales() {
         )
       })}
       </div>
+      <Link to={"/festivales/creacion-festival"}> 
+      <Button > Añade un nuevo festival </Button> {/* este botón debería ser solo accesible para admin */}
+      </Link>
     </div>
   );
 }

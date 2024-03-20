@@ -25,7 +25,7 @@ function App() {
         <Route path={"/festivales"} element={ <Festivales /> } />
         <Route path={"/festivales/detalle/:festivalId"} element={ <DetallesFestival /> } />
         <Route path={"/festivales/creacion-festival"} element={ <AñadirFestival /> } />
-        <Route path={"/festivales/edicion-festival"} element={ <EditarFestival /> } />
+        <Route path={"/festivales/edicion-festival/:festivalId"} element={ <EditarFestival /> } />
         <Route path={"/registro"} element={ <Signup /> } />
         <Route path={"/acceso"} element={ <Login/> } />
         <Route path={"/perfil"} element={ <Perfil /> } /> 

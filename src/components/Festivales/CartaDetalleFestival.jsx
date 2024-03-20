@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/esm/Button";
 import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
 
 function CartaDetalleFestival(props) {
   const festival = props.festival;
@@ -60,6 +61,10 @@ function CartaDetalleFestival(props) {
           </Card.Text>
         </Card.Body>
       </Card>
+      <Button> Añadir a favoritos </Button> {/*Este botón debería ser visible solo para user y admin*/}
+      <Link to={`/festivales/edicion-festival/${festival._id}`}> 
+      <Button> Editar Festival </Button> {/*Este botón debería ser visible solo para admin*/}
+      </Link>
     </div>
   );
 }

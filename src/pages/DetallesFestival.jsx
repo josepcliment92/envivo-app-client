@@ -6,6 +6,7 @@ import { TailSpin } from "react-loader-spinner";
 import CartaDetalleFestival from "../components/Festivales/CartaDetalleFestival";
 import Button from "react-bootstrap/esm/Button";
 import ReseñasSeccion from "../components/Reseñas/ReseñasSeccion"
+import { Link } from "react-router-dom";
 
 function DetallesFestival() {
   const [festival, setFestival] = useState(null);
@@ -16,7 +17,7 @@ function DetallesFestival() {
 
   useEffect(() => {
     getFestivalData();
-    getReseñasData();
+    //getReseñasData();
   }, []);
 
   async function getFestivalData() {
@@ -50,9 +51,6 @@ function DetallesFestival() {
   return (
     <div>
       <CartaDetalleFestival festival={festival}/>
-
-      <Button> Añadir a favoritos </Button> {/*Este botón debería ser visible solo para user y admin*/}
-      <Button> Editar Festival </Button> {/*Este botón debería ser visible solo para admin*/}
 
       <ReseñasSeccion />
     </div>
