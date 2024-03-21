@@ -1,12 +1,19 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import { Button } from "react-bootstrap";
 import EditFormReseñas from "./EditFormReseñas";
 import service from "../../services/config.services";
+import { useContext } from "react";
+import { AuthContext } from "../../context/auth.context";
 
 function CartaReseña(props) {
   const [verFormEditReseñas, setVerFormEditReseñas] = useState(false);
+  const [username, setUsername] = useState("");
+  const [usernameEmail, setUsernameEmail] = useState("");
+
+  const { userEmail } = useContext(AuthContext);
+  const { userRole } = useContext(AuthContext);
 
   const handleToggleFormEditReseñas = () => {
     setVerFormEditReseñas(!verFormEditReseñas);
@@ -23,12 +30,23 @@ function CartaReseña(props) {
       });
   };
 
+  useEffect(() => {
+    service
+      .get(`/resenas/username/${props.eachReseñaId}`)
+      .then((response) => {
+        setUsername(response.data.user.name);
+        setUsernameEmail(response.data.user.email);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
   return (
     <div>
       <Card>
         <Card.Body>
-          <Card.Title> Nombre Usuario </Card.Title>
-          {/*llamada al backend para popular el nombre del user. tenemos su id. Como idea*/}
+          <Card.Title> {username} </Card.Title>
           <Card.Text>
             <strong>Lo que más te ha gustado:</strong>{" "}
             {props.eachReseñaYourFavouriteThing}
@@ -38,14 +56,15 @@ function CartaReseña(props) {
             {props.eachReseñaWhatWouldYouImprove}
           </Card.Text>
           <Card.Text>
-            <strong>Opinión Global:</strong>{" "}
-            {props.eachReseñaMoreObservations}
+            <strong>Opinión Global:</strong> {props.eachReseñaMoreObservations}
           </Card.Text>
           <Card.Text>
             <strong>Puntuación final:</strong> {props.eachReseñaOverallRating}
           </Card.Text>
         </Card.Body>
-        <Button onClick={handleToggleFormEditReseñas}>Edita tu reseña</Button>
+        {userEmail === usernameEmail || userRole === "admin" ? (
+          <Button onClick={handleToggleFormEditReseñas}>Edita la reseña</Button>
+        ) : null}
         <br />
         {verFormEditReseñas === true ? (
           <div>

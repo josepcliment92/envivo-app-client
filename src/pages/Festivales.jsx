@@ -4,13 +4,17 @@ import { useNavigate } from "react-router-dom";
 import service from "../services/config.services";
 import { TailSpin } from "react-loader-spinner";
 import CartaFestival from "../components/Festivales/CartaFestival";
-import BuscadorFestivales from "../components/Festivales/BuscadorFestivales"
+import BuscadorFestivales from "../components/Festivales/BuscadorFestivales";
 import Button from "react-bootstrap/esm/Button";
 import { Link } from "react-router-dom";
+import { useContext } from "react"
+import { AuthContext } from "../context/auth.context"
 
 function Festivales() {
   const [festivales, setFestivales] = useState(null);
   const navigate = useNavigate();
+
+  const { userRole } = useContext(AuthContext)
 
   useEffect(() => {
     service
@@ -36,17 +40,21 @@ function Festivales() {
     <div>
       <h2>Festivales</h2>
       <BuscadorFestivales />
-      
-      <div> {festivales.map((eachFestival) => {
-        return (
-          <div key={eachFestival["_id"]}> 
-          <CartaFestival eachFestival={eachFestival} />
-          </div>
-        )
-      })}
+
+      <div>
+        {" "}
+        {festivales.map((eachFestival) => {
+          return (
+            <div key={eachFestival["_id"]}>
+              <CartaFestival eachFestival={eachFestival} />
+            </div>
+          );
+        })}
       </div>
-      <Link to={"/festivales/creacion-festival"}> 
-      <Button > Añade un nuevo festival </Button> {/* este botón debería ser solo accesible para admin */}
+      <Link to={"/festivales/creacion-festival"}>
+        {userRole === "admin" ? (
+          <Button> Añade un nuevo festival </Button>
+        ) : null}
       </Link>
     </div>
   );

@@ -10,7 +10,7 @@ import citiesArr from "../../utils/ citiesArr";
 
 function FormFestivales() {
   const [name, setName] = useState("");
-  const [image, setImage] = useState("");
+  //const [image, setImage] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [city, setCity] = useState("");
@@ -21,7 +21,39 @@ function FormFestivales() {
   const [campingArea, setCampingArea] = useState(false);
   const [extraInfo, setExtraInfo] = useState("");
 
+  const [imageUrl, setImageUrl] = useState(null);
+  const [isUploading, setIsUploading] = useState(false); // for a loading animation effect
+
   const navigate = useNavigate();
+
+  const handleFileUpload = async (event) => {
+    // console.log("The file to be uploaded is: ", e.target.files[0]);
+
+    if (!event.target.files[0]) {
+      // to prevent accidentally clicking the choose file button and not selecting a file
+      return;
+    }
+
+    setIsUploading(true); // to start the loading animation
+
+    const uploadData = new FormData(); // images and other files need to be sent to the backend in a FormData
+    uploadData.append("image", event.target.files[0]);
+    //                   |
+    //     this name needs to match the name used in the middleware in the backend => uploader.single("image")
+
+    try {
+      const response = await service.post("/upload", uploadData);
+      // !IMPORTANT: Adapt the request structure to the one in your proyect (services, .env, auth, etc...)
+
+      setImageUrl(response.data.imageUrl);
+      //                          |
+      //     this is how the backend sends the image to the frontend => res.json({ imageUrl: req.file.path });
+
+      setIsUploading(false); // to stop the loading animation
+    } catch (error) {
+      navigate("/not-found");
+    }
+  };
 
   const handleGenre = (e) => {
     console.log(e.target.value);
@@ -43,7 +75,7 @@ function FormFestivales() {
 
     const newFestival = {
       name: name,
-      image: image,
+      image: imageUrl,
       startDate: startDate,
       endDate: endDate,
       city: city,
@@ -79,14 +111,15 @@ function FormFestivales() {
         </FormGroup>
 
         <FormGroup>
-          <Form.Label>URL de la imagen</Form.Label>
+          <Form.Label>Imagen</Form.Label>
           <Form.Control
-            type="url"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
+            name="image"
+            onChange={handleFileUpload}
+            disabled={isUploading}
           />
         </FormGroup>
-
+        {isUploading ? <h3>Subiendo la imagen...</h3> : null}
         <FormGroup>
           <Form.Label>Fecha de inicio</Form.Label>
           <Form.Control
@@ -129,6 +162,7 @@ function FormFestivales() {
             value={region}
             onChange={(e) => setRegion(e.target.value)}
           >
+            <option> Elige la CCAA </option>
             <option value="Andalucía"> Andalucía </option>
             <option value="Aragón"> Aragón </option>
             <option value="Asturias"> Asturias </option>
@@ -143,7 +177,6 @@ function FormFestivales() {
             <option value="Islas Canarias"> Islas Canarias </option>
             <option value="La Rioja"> La Rioja </option>
             <option value="Madrid"> Madrid </option>
-            <option value="Andalucía"> Andalucía </option>
             <option value="Navarra"> Navarra </option>
             <option value="País Vasco"> País Vasco </option>
             <option value="Ceuta"> Ceuta </option>

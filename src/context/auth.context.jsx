@@ -11,6 +11,7 @@ function AuthWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedUserId, setLoggedUserId] = useState(null);
   const [userRole, setUserRole] = useState(null);
+  const [userEmail, setUserEmail] = useState(null)
 
   const authenticateUser = async () => {
     const storedToken = localStorage.getItem("authToken");
@@ -25,11 +26,13 @@ function AuthWrapper(props) {
       setIsLoggedIn(true);
       setLoggedUserId(response.data._id);
       setUserRole(response.data.role);
+      setUserEmail(response.data.email)
     } catch (error) {
       //el token no es válido o no existe
       setIsLoggedIn(false);
       setLoggedUserId(null);
       setUserRole(null);
+      setUserEmail(null)
     }
   };
 
@@ -37,6 +40,7 @@ function AuthWrapper(props) {
     isLoggedIn,
     loggedUserId,
     userRole,
+    userEmail,
     authenticateUser,
   };
 

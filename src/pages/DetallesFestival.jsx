@@ -5,16 +5,19 @@ import service from "../services/config.services";
 import { TailSpin } from "react-loader-spinner";
 import CartaDetalleFestival from "../components/Festivales/CartaDetalleFestival";
 import Button from "react-bootstrap/esm/Button";
-import ReseñasSeccion from "../components/Reseñas/ReseñasSeccion";
 import { Link } from "react-router-dom";
 import FormReseñas from "../components/Reseñas/FormReseñas";
 import CartaReseña from "../components/Reseñas/CartaReseña";
 import Card from "react-bootstrap/Card";
+import { useContext } from "react"
+import { AuthContext } from "../context/auth.context"
 
 function DetallesFestival() {
   const [festival, setFestival] = useState(null);
   const [reseñas, setReseñas] = useState([]);
   const [verFormReseñas, setVerFormReseñas] = useState(false);
+
+  const { userRole } = useContext(AuthContext)
 
   const navigate = useNavigate();
   const params = useParams();
@@ -68,9 +71,11 @@ function DetallesFestival() {
       >
         <Card>
           <Card.Body className="d-grid gap-2">
-            <Button onClick={handleToggleFormReseñas}>
+
+          {userRole === "user" || userRole === "admin" ? <Button onClick={handleToggleFormReseñas}>
               ¡Danos tu opinión del festival!
-            </Button>
+            </Button> : null}
+
             {verFormReseñas && (
               <FormReseñas
                 festivalId={festival._id}
@@ -93,7 +98,7 @@ function DetallesFestival() {
             eachReseñaOverallRating={eachReseña.overallRating}
             eachReseñaId={eachReseña._id}
             eachReseña={eachReseña}
-            //key={eachReseña._id}
+            key={eachReseña._id}
             setReseñas={setReseñas}
             getReseñasData={getReseñasData}
             reseñas={reseñas}

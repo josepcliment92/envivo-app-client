@@ -10,7 +10,7 @@ import citiesArr from "../../utils/ citiesArr";
 
 function EditFormFestivales(props) {
   const festival = props.festival;
-  console.log(festival.artists)
+  //console.log(festival.artists)
   const navigate = useNavigate();
 
  // if (festival.artists[0] === "" ) {
@@ -18,7 +18,7 @@ function EditFormFestivales(props) {
  // }
 
   const [name, setName] = useState(festival.name);
-  const [image, setImage] = useState(festival.image);
+  const [imageUrl, setImageUrl] = useState(festival.image);
   const [startDate, setStartDate] = useState(festival.startDate);
   const [endDate, setEndDate] = useState(festival.endDate);
   const [city, setCity] = useState(festival.city);
@@ -29,12 +29,43 @@ function EditFormFestivales(props) {
   const [campingArea, setCampingArea] = useState(festival.campingArea);
   const [extraInfo, setExtraInfo] = useState(festival.extraInfo);
 
+  const [isUploading, setIsUploading] = useState(false)
+
+  const handleFileUpload = async (event) => {
+    // console.log("The file to be uploaded is: ", e.target.files[0]);
+
+    if (!event.target.files[0]) {
+      // to prevent accidentally clicking the choose file button and not selecting a file
+      return;
+    }
+
+    setIsUploading(true); // to start the loading animation
+
+    const uploadData = new FormData(); // images and other files need to be sent to the backend in a FormData
+    uploadData.append("image", event.target.files[0]);
+    //                   |
+    //     this name needs to match the name used in the middleware in the backend => uploader.single("image")
+
+    try {
+      const response = await service.post("/upload", uploadData);
+      // !IMPORTANT: Adapt the request structure to the one in your proyect (services, .env, auth, etc...)
+
+      setImageUrl(response.data.imageUrl);
+      //                          |
+      //     this is how the backend sends the image to the frontend => res.json({ imageUrl: req.file.path });
+
+      setIsUploading(false); // to stop the loading animation
+    } catch (error) {
+      navigate("/not-found");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const editFestival = {
       name: name,
-      image: image,
+      image: imageUrl,
       startDate: startDate,
       endDate: endDate,
       city: city,
@@ -72,10 +103,10 @@ function EditFormFestivales(props) {
     setName(inputValue);
   };
 
-  const handleImage = (e) => {
+  /*const handleImage = (e) => {
     let inputValue = e.target.value;
     setImage(inputValue);
-  };
+  };*/
 
   const handleStartDate = (e) => {
     let inputValue = e.target.value;
@@ -143,14 +174,15 @@ function EditFormFestivales(props) {
         </FormGroup>
 
         <FormGroup>
-          <Form.Label>URL de la imagen</Form.Label>
+          <Form.Label>Imagen</Form.Label>
           <Form.Control
-            type="url"
-            value={image}
-            onChange={handleImage}
+            type="file"
+            name="image"
+            onChange={handleFileUpload}
+            disabled={isUploading}
           />
         </FormGroup>
-
+        {isUploading ? <h3>... uploading image</h3> : null}
         <FormGroup>
           <Form.Label>Fecha de inicio</Form.Label> 
           <Form.Control

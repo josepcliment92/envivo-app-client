@@ -65,8 +65,6 @@ function CartaDetalleFestival(props) {
           </Card.Text>
         </Card.Body>
       </Card>
-      <Button> Añadir a favoritos </Button>{" "}
-      {/*Este botón debería ser visible solo para user y admin*/}
       <Link to={`/festivales/edicion-festival/${festival._id}`}>
         {userRole === "admin" ? <Button> Editar Festival </Button> : null}
         {/*Este botón debería ser visible solo para admin*/}
