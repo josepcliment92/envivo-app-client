@@ -10,7 +10,12 @@ import citiesArr from "../../utils/ citiesArr";
 
 function EditFormFestivales(props) {
   const festival = props.festival;
+  console.log(festival.artists)
   const navigate = useNavigate();
+
+ // if (festival.artists[0] === "" ) {
+  //  festival.artists === festival.artists[0];
+ // }
 
   const [name, setName] = useState(festival.name);
   const [image, setImage] = useState(festival.image);
@@ -18,7 +23,7 @@ function EditFormFestivales(props) {
   const [endDate, setEndDate] = useState(festival.endDate);
   const [city, setCity] = useState(festival.city);
   const [region, setRegion] = useState(festival.region);
-  const [artists, setArtists] = useState(festival.artists);
+  const [artists, setArtists] = useState(festival.artists.join(", "));
   const [genres, setGenres] = useState(festival.genres);
   const [minPrize, setMinPrize] = useState(festival.minPrize);
   const [campingArea, setCampingArea] = useState(festival.campingArea);
@@ -51,8 +56,8 @@ function EditFormFestivales(props) {
       });
   };
 
-  const handleDelete = (e) => {
-    service.delete(`/festivales/detalle/${festival._id}`)
+  const handleDelete = () => {
+    service.delete(`/festivales/${festival._id}`)
     .then(() => {
         navigate("/")
     })
@@ -98,7 +103,6 @@ function EditFormFestivales(props) {
   };
 
   const handleGenres = (e) => {
-    console.log(e.target.value);
     let inputValue = e.target.value;
     let genresStateClone = JSON.parse(JSON.stringify(genres));
 
@@ -214,7 +218,7 @@ function EditFormFestivales(props) {
           <Form.Control
             type="text"
             value={artists}
-            placeholder="Sepáralos con comas"
+            //placeholder={festival.artists}
             onChange={handleArtists}
           />
         </FormGroup>
@@ -269,7 +273,7 @@ function EditFormFestivales(props) {
       <Button
               variant="danger"
               size="lg"
-              onClick={(e) => handleDelete(festival)}
+              onClick={handleDelete}
             >
               Borrar festival
             </Button>

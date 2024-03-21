@@ -2,8 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
+import { FormGroup, FormLabel, FormControl } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import service from "../../services/config.services";
 
-function FormReseñas() {
+function FormReseñas(props) {
   const [yourFavouriteThing, setYourFavouriteThing] = useState("");
   const [whatWouldYouImprove, setWhatWouldYouImprove] = useState("");
   const [moreObservations, setMoreObservations] = useState("");
@@ -15,18 +18,18 @@ function FormReseñas() {
     e.preventDefault();
 
     const newReseña = {
-      festival: xx, //PENDIENTE, TRAER INFO CON PROPS
+      festival: props.festivalId,
       yourFavouriteThing: yourFavouriteThing,
       whatWouldYouImprove: whatWouldYouImprove,
       moreObservations: moreObservations,
       overallRating: overallRating,
     };
     service
-      .post("/resenas/:festivalId", newReseña)
+      .post(`/resenas/${props.festivalId}`, newReseña)
       .then((response) => {
         console.log(response.data); //comprobar que es el ID del festival
-        navigate(`/festivales/detalle/${response.data}`);
-        setYourFavouriteThing;
+        //navigate(`/festivales/detalle/${response.data}`);
+        props.getReseñasData()
       })
       .catch((error) => {
         console.log(error);
