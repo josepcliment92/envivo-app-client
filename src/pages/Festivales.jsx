@@ -6,20 +6,19 @@ import { TailSpin } from "react-loader-spinner";
 import CartaFestival from "../components/Festivales/CartaFestival";
 import Button from "react-bootstrap/esm/Button";
 import { Link } from "react-router-dom";
-import { useContext } from "react"
-import { AuthContext } from "../context/auth.context"
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.context";
 
 function Festivales() {
   const [festivales, setFestivales] = useState(null);
   const navigate = useNavigate();
 
-  const { userRole } = useContext(AuthContext)
+  const { userRole } = useContext(AuthContext);
 
   useEffect(() => {
     service
       .get("/festivales")
       .then((response) => {
-        //console.log(response.data)
         setFestivales(response.data);
       })
       .catch((error) => {
@@ -39,7 +38,7 @@ function Festivales() {
     <div>
       <h2>Festivales</h2>
 
-      <div style={{ display: "flex", flexWrap: "wrap"}}>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
         {" "}
         {festivales.map((eachFestival) => {
           return (

@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import axios from "axios";
+import service from "../services/config.services";
 import { useEffect } from "react";
 
 //componente que transmite el contexto
@@ -10,28 +10,25 @@ function AuthWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedUserId, setLoggedUserId] = useState(null);
   const [userRole, setUserRole] = useState(null);
-  const [userEmail, setUserEmail] = useState(null)
+  const [userEmail, setUserEmail] = useState(null);
 
   const authenticateUser = async () => {
     const storedToken = localStorage.getItem("authToken");
 
     try {
       //verifica que token es válido
-      const response = await axios.get(
-        "http://localhost:5005/api/auth/verify",
-        { headers: { authorization: `Bearer ${storedToken}` } }
-      );
+      const response = await service.get("/auth/verify");
       //si el token es válido, permitimos acceso
       setIsLoggedIn(true);
       setLoggedUserId(response.data._id);
       setUserRole(response.data.role);
-      setUserEmail(response.data.email)
+      setUserEmail(response.data.email);
     } catch (error) {
       //el token no es válido o no existe
       setIsLoggedIn(false);
       setLoggedUserId(null);
       setUserRole(null);
-      setUserEmail(null)
+      setUserEmail(null);
     }
   };
 

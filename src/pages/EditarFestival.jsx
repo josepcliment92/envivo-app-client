@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import service from "../services/config.services";
 
 function EditarFestival() {
-  
   const [festival, setFestival] = useState(null);
 
   const navigate = useNavigate();
@@ -20,7 +19,6 @@ function EditarFestival() {
     try {
       const festival = await service.get(`/festivales/${params.festivalId}`);
       setFestival(festival.data);
-      //console.log(festival.data);
     } catch (error) {
       console.log(error);
     }
@@ -34,13 +32,12 @@ function EditarFestival() {
     );
   }
 
-
   return (
     <div>
       <div>
         <h2>Actualiza el festival</h2>
 
-        <EditFormFestivales festival={festival} /> {/* aquí pasar como props la información del festival, tenemos su Id en la URL*/}
+        <EditFormFestivales festival={festival} />
       </div>
     </div>
   );

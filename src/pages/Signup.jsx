@@ -18,27 +18,24 @@ function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    
+
     const newUser = {
       name,
       email,
       password,
     };
 
-    //contactar backend para registrar información
-
     try {
       await service.post("/auth/signup", newUser);
-      navigate("/acceso")
-
+      navigate("/acceso");
     } catch (error) {
-        let errorCode = error.response.status
-        let errorMessage = error.response.data.message
-        if (errorCode = 400) {
-            setErrorMessage(errorMessage)
-        } else {
-            console.log(error) //PENDIENTE: redireccionar a página ERROR
-        }
+      let errorCode = error.response.status;
+      let errorMessage = error.response.data.message;
+      if ((errorCode = 400)) {
+        setErrorMessage(errorMessage);
+      } else {
+        navigate("/not-found");
+      }
     }
   };
 

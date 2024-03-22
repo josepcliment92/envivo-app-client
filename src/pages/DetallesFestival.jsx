@@ -5,7 +5,6 @@ import service from "../services/config.services";
 import { TailSpin } from "react-loader-spinner";
 import CartaDetalleFestival from "../components/Festivales/CartaDetalleFestival";
 import Button from "react-bootstrap/esm/Button";
-import { Link } from "react-router-dom";
 import FormReseñas from "../components/Reseñas/FormReseñas";
 import CartaReseña from "../components/Reseñas/CartaReseña";
 import Card from "react-bootstrap/Card";
@@ -31,7 +30,6 @@ function DetallesFestival() {
     try {
       const festival = await service.get(`/festivales/${params.festivalId}`);
       setFestival(festival.data);
-      //console.log(festival.data._id);
     } catch (error) {
       navigate("*");
     }
@@ -40,8 +38,7 @@ function DetallesFestival() {
   async function getReseñasData() {
     try {
       const reseñas = await service.get(`/resenas/${params.festivalId}`);
-      setReseñas(reseñas.data); //esto nos da un array de objetos, cada objeto es una reseña
-      //console.log(reseña.data)
+      setReseñas(reseñas.data);
     } catch (error) {
       navigate("*");
     }
@@ -75,7 +72,7 @@ function DetallesFestival() {
               {userRole === "user" || userRole === "admin" ? (
                 <Button
                   style={{
-                    width: "350px"
+                    width: "350px",
                   }}
                   onClick={handleToggleFormReseñas}
                 >
