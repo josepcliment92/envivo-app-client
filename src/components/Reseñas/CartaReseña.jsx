@@ -44,7 +44,6 @@ function CartaReseña(props) {
 
   return (
     <div>
-      <h3>Reseñas</h3>
       <Card>
         <Card.Body>
           <Card.Title style={{ textDecoration: "underline" }}>

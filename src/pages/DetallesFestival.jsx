@@ -93,6 +93,7 @@ function DetallesFestival() {
       </div>
 
       <div>
+      <h3 style={{marginTop: "10px"}}>Reseñas</h3>
         <hr />
         {reseñas.map((eachReseña) => (
           <CartaReseña
