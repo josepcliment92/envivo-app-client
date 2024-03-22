@@ -22,16 +22,14 @@ function MainNavbar() {
       <Container style={{ display: "flex", justifyContent: "flex-start"}}>
         <Nav>
           <Link to={"/"} style={{ margin: "5px", color: "white", textDecoration: "none" }}>
-            EnVivo
+            Home
           </Link>{" "}
           <Link to={"/festivales"} style={{ margin: "5px", color: "white", textDecoration: "none" }}>
             Festivales
           </Link>
-          {/*{userRole === "user" || userRole === "admin" ? null : ( */}
             <Link to={"/registro"} style={{ margin: "5px", color: "white", textDecoration: "none" }}>
               Registro
             </Link>
-          {/*)}*/}
           <Link to={"/acceso"} style={{ margin: "5px", color: "white", textDecoration: "none" }}>
             Acceso
           </Link>
