@@ -38,7 +38,6 @@ function Festivales() {
   return (
     <div>
       <h2>Festivales</h2>
-      <BuscadorFestivales />
 
       <div style={{ display: "flex", flexWrap: "wrap"}}>
         {" "}
