@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import service from "../services/config.services";
 import { TailSpin } from "react-loader-spinner";
 import CartaFestival from "../components/Festivales/CartaFestival";
-import BuscadorFestivales from "../components/Festivales/BuscadorFestivales";
 import Button from "react-bootstrap/esm/Button";
 import { Link } from "react-router-dom";
 import { useContext } from "react"
@@ -41,7 +40,7 @@ function Festivales() {
       <h2>Festivales</h2>
       <BuscadorFestivales />
 
-      <div>
+      <div style={{ display: "flex", flexWrap: "wrap"}}>
         {" "}
         {festivales.map((eachFestival) => {
           return (

@@ -10,17 +10,12 @@ import citiesArr from "../../utils/ citiesArr";
 
 function EditFormFestivales(props) {
   const festival = props.festival;
-  //console.log(festival.artists)
   const navigate = useNavigate();
-
- // if (festival.artists[0] === "" ) {
-  //  festival.artists === festival.artists[0];
- // }
 
   const [name, setName] = useState(festival.name);
   const [imageUrl, setImageUrl] = useState(festival.image);
-  const [startDate, setStartDate] = useState(festival.startDate);
-  const [endDate, setEndDate] = useState(festival.endDate);
+  const [startDate, setStartDate] = useState(festival.startDate.slice(0, 10));
+  const [endDate, setEndDate] = useState(festival.endDate.slice(0, 10));
   const [city, setCity] = useState(festival.city);
   const [region, setRegion] = useState(festival.region);
   const [artists, setArtists] = useState(festival.artists.join(", "));
@@ -93,8 +88,7 @@ function EditFormFestivales(props) {
         navigate("/")
     })
     .catch((err) => {
-        console.log(err)
-      //navigate("*")
+        console.log(err) //cambiarlo por un mensaje o un navigate
     })
   }
 
@@ -102,11 +96,6 @@ function EditFormFestivales(props) {
     let inputValue = e.target.value;
     setName(inputValue);
   };
-
-  /*const handleImage = (e) => {
-    let inputValue = e.target.value;
-    setImage(inputValue);
-  };*/
 
   const handleStartDate = (e) => {
     let inputValue = e.target.value;
@@ -163,46 +152,48 @@ function EditFormFestivales(props) {
 
   return (
     <div>
+      <br />
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Form.Label>Nombre</Form.Label>
+          <Form.Label><strong>Nombre</strong></Form.Label>
           <Form.Control
             type="text"
             value={name}
             onChange={handleName}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Imagen</Form.Label>
+          <Form.Label><strong>Imagen</strong></Form.Label>
           <Form.Control
             type="file"
             name="image"
             onChange={handleFileUpload}
             disabled={isUploading}
           />
+          <br />
         </FormGroup>
         {isUploading ? <h3>... uploading image</h3> : null}
         <FormGroup>
-          <Form.Label>Fecha de inicio</Form.Label> 
+          <Form.Label><strong>Fecha de inicio</strong></Form.Label> 
           <Form.Control
             type="date"
-            value={startDate} //quiero que aparezca ya puesta la fecha del festival, de primeras
+            value={startDate}
             onChange={handleStartDate}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Fecha de fin</Form.Label>
+          <Form.Label><strong>Fecha de fin</strong></Form.Label>
           <Form.Control
             type="date"
-            value={endDate} //quiero que aparezca ya puesta la fecha del festival, de primeras
+            value={endDate} 
             onChange={handleEndDate}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Ciudad</Form.Label>
+          <Form.Label><strong>Ciudad</strong></Form.Label>
           <Form.Select
             type="text"
             placeholder="Ciudad"
@@ -214,9 +205,9 @@ function EditFormFestivales(props) {
             ))}
           </Form.Select>
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Comunidad Autónoma</Form.Label>
+          <Form.Label><strong>Comunidad Autónoma</strong></Form.Label>
           <Form.Select
             type="text"
             placeholder="Comunidad Autónoma"
@@ -244,43 +235,42 @@ function EditFormFestivales(props) {
             <option value="Melilla"> Melilla </option>
           </Form.Select>
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Artistas principales:</Form.Label>
+          <Form.Label><strong>Artistas principales</strong></Form.Label>
           <Form.Control
             type="text"
             value={artists}
-            //placeholder={festival.artists}
             onChange={handleArtists}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Géneros</Form.Label>
+          <Form.Label><strong>Géneros</strong></Form.Label>
           {genresArr.map((eachGenre) => (
             <div key={`${eachGenre}`} className="mb-3">
               <Form.Check
                 type="checkbox"
                 id={`${eachGenre}`}
-                label={`${eachGenre}`} //quiero que aquí aparezcan de primeras marcados los géneros que ya estaban seleccionados
+                label={`${eachGenre}`}
                 value={eachGenre}
                 onClick={handleGenres}
               />
             </div>
           ))}
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Precio base</Form.Label>
+          <Form.Label><strong>Precio base</strong></Form.Label>
           <Form.Control
             type="number"
             value={minPrize}
             onChange={handleMinPrize}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>¿Cuenta con zona de camping?</Form.Label>
+          <Form.Label><strong>¿Cuenta con zona de camping?</strong></Form.Label>
           <Form.Select
             type="text"
             value={campingArea}
@@ -290,21 +280,21 @@ function EditFormFestivales(props) {
             <option value="true"> Sí </option>
           </Form.Select>
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Más información</Form.Label>
+          <Form.Label><strong>Más información</strong></Form.Label>
           <Form.Control
             as="textarea"
             value={extraInfo}
             onChange={handleExtraInfo}
           />
         </FormGroup>
-
+        <br />
         <Button type="submit">Actualizar</Button>
       </Form>
+      <br />
       <Button
               variant="danger"
-              size="lg"
               onClick={handleDelete}
             >
               Borrar festival

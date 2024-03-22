@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,21 +9,28 @@ function Footer() {
     <Navbar
       expand="lg"
       className="bg-body-tertiary"
-      sticky="bottom"
-      style={{ backgroundColor: "green" }}
+      bg="dark"
+      data-bs-theme="dark"
+      fixed="bottom"
     >
-      <Container style={{ display: "flex", justifyContent: "flex-end"}}>
+      <Container style={{ display: "flex", justifyContent: "flex-end" }}>
         <Nav>
-          <Link to={"/contacto"} style={{ margin: "5px", color: "white" }}>
+          <Link
+            to={"/contacto"}
+            style={{ margin: "5px", color: "white", textDecoration: "none" }}
+          >
             Contacto
           </Link>
-          <Link to={"/quienes-somos"} style={{ margin: "5px", color: "white"  }}>
+          <Link
+            to={"/quienes-somos"}
+            style={{ margin: "5px", color: "white", textDecoration: "none" }}
+          >
             Quienes somos
           </Link>
         </Nav>
       </Container>
     </Navbar>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

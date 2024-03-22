@@ -27,9 +27,8 @@ function FormReseñas(props) {
     service
       .post(`/resenas/${props.festivalId}`, newReseña)
       .then((response) => {
-        console.log(response.data); //comprobar que es el ID del festival
-        //navigate(`/festivales/detalle/${response.data}`);
-        props.getReseñasData()
+        //console.log(response.data)
+        props.getReseñasData();
       })
       .catch((error) => {
         console.log(error);
@@ -38,36 +37,44 @@ function FormReseñas(props) {
 
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
         <FormGroup>
-          <FormLabel>¿Qué es lo que más te ha gustado?</FormLabel>
+          <FormLabel>
+            <strong>¿Qué es lo que más te ha gustado?</strong>
+          </FormLabel>
           <FormControl
             type="text"
             value={yourFavouriteThing}
             onChange={(e) => setYourFavouriteThing(e.target.value)}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <FormLabel>¿Hay algo que se pueda mejorar?</FormLabel>
+          <FormLabel>
+            <strong>¿Hay algo que se pueda mejorar?</strong>
+          </FormLabel>
           <FormControl
             type="text"
             value={whatWouldYouImprove}
             onChange={(e) => setWhatWouldYouImprove(e.target.value)}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <FormLabel>Opinión global del festival</FormLabel>
+          <FormLabel>
+            <strong>Opinión global del festival</strong>
+          </FormLabel>
           <FormControl
             type="text"
             value={moreObservations}
             onChange={(e) => setMoreObservations(e.target.value)}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Tu puntuación</Form.Label>
+          <Form.Label>
+            <strong>Tu puntuación</strong>
+          </Form.Label>
           <Form.Select
             type="number"
             placeholder="Puntúa del 1 al 10"
@@ -86,7 +93,9 @@ function FormReseñas(props) {
             <option value="10"> 10 </option>
           </Form.Select>
         </FormGroup>
-        <Button type="submit">Enviar</Button>
+        <Button style={{ marginTop: "20px" }} type="submit">
+          Enviar
+        </Button>
       </Form>
     </div>
   );

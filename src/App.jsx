@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
@@ -8,12 +9,11 @@ import AñadirFestival from "./pages/AñadirFestival";
 import EditarFestival from "./pages/EditarFestival";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Perfil from "./pages/Perfil";
 import QuienesSomos from "./pages/QuienesSomos";
 import Contacto from "./pages/Contacto";
 import NotFound from "./pages/NotFound";
 import MainNavbar from "./components/Navbar";
-import IsPrivate from "./components/IsPrivate";
+//import IsPrivate from "./components/IsPrivate";
 import IsAdmin from "./components/IsAdmin";
 
 function App() {
@@ -47,14 +47,6 @@ function App() {
           />
           <Route path={"/registro"} element={<Signup />} />
           <Route path={"/acceso"} element={<Login />} />
-          <Route
-            path={"/perfil"}
-            element={
-              <IsPrivate>
-                <Perfil />
-              </IsPrivate>
-            }
-          />
           <Route path={"/quienes-somos"} element={<QuienesSomos />} />
           <Route path={"/contacto"} element={<Contacto />} />
           <Route path={"*"} element={<NotFound />} />

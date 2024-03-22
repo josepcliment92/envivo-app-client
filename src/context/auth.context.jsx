@@ -6,7 +6,6 @@ import { useEffect } from "react";
 const AuthContext = createContext();
 
 //componente envoltorio con todos los contextos a pasar
-
 function AuthWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedUserId, setLoggedUserId] = useState(null);

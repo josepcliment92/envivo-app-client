@@ -13,8 +13,6 @@ function EditFormReseñas(props) {
   const [moreObservations, setMoreObservations] = useState(props.moreObservations);
   const [overallRating, setOverallRating] = useState(props.overallRating);
 
-  
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -65,7 +63,7 @@ function EditFormReseñas(props) {
             onChange={handleFavouriteThing}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
           <FormLabel>¿Hay algo que se pueda mejorar?</FormLabel>
           <FormControl
@@ -74,7 +72,7 @@ function EditFormReseñas(props) {
             onChange={handleImprove}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
           <FormLabel>Opinión global del festival</FormLabel>
           <FormControl
@@ -83,7 +81,7 @@ function EditFormReseñas(props) {
             onChange={handleMoreObservations}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
           <Form.Label>Tu puntuación</Form.Label>
           <Form.Select
@@ -104,7 +102,7 @@ function EditFormReseñas(props) {
             <option value="10"> 10 </option>
           </Form.Select>
         </FormGroup>
-        <Button type="submit">Enviar</Button>
+        <Button style={{margin: "15px"}} type="submit">Enviar</Button>
       </Form>
     </div>
   )

@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import service from "../services/config.services";
 import { AuthContext } from "../context/auth.context";
+import { Button, Form } from "react-bootstrap";
+import { FormLabel, FormControl } from "react-bootstrap";
 
 function Login() {
 
@@ -60,9 +62,9 @@ function Login() {
     <div>
       <h1>Accede a EnVivo</h1>
 
-      <form onSubmit={handleLogin}>
-      <label>Nombre:</label>
-        <input
+      <Form onSubmit={handleLogin}>
+      <FormLabel>Nombre:</FormLabel>
+        <FormControl
           type="text"
           name="name"
           value={name}
@@ -71,8 +73,8 @@ function Login() {
 
         <br />
         
-        <label>Correo Electronico:</label>
-        <input
+        <FormLabel>Correo Electronico:</FormLabel>
+        <FormControl
           type="email"
           name="email"
           value={email}
@@ -81,8 +83,8 @@ function Login() {
 
         <br />
 
-        <label>Contraseña:</label>
-        <input
+        <FormLabel>Contraseña:</FormLabel>
+        <FormControl
           type="password"
           name="password"
           value={password}
@@ -93,12 +95,12 @@ function Login() {
 
         <p>{errorMessage}</p>
 
-        <button
+        <Button
           type="submit"
         >
           Acceder
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
 }

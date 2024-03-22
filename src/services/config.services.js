@@ -4,20 +4,18 @@
 import axios from "axios";
 
 const service = axios.create({
-    baseURL: import.meta.env.VITE_SERVER_URL
-})
+  baseURL: import.meta.env.VITE_SERVER_URL,
+});
 
 //interceptar salida de la llamada y agregar token
 service.interceptors.request.use((config) => {
+  const storedToken = localStorage.getItem("authToken");
 
-    const storedToken = localStorage.getItem("authToken")
-  
-    if (storedToken) {
-      config.headers = { authorization: `Bearer ${storedToken}` }
-    }
-  
-    return config
-  
-  })
+  if (storedToken) {
+    config.headers = { authorization: `Bearer ${storedToken}` };
+  }
 
-export default service
+  return config;
+});
+
+export default service;

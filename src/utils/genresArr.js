@@ -1,14 +1,14 @@
 const genresArr = [
-    "pop",
-      "rock",
-      "indie",
-      "alternativo",
-      "reggae",
-      "folk",
-      "urbano",
-      "hip hop",
-      "reggaeton",
-      "otros"
-]
+  "Pop",
+  "Rock",
+  "Indie",
+  "Alternativo",
+  "Reggae",
+  "Folk",
+  "Urbano",
+  "Hip Hop",
+  "Reggaeton",
+  "Otros",
+];
 
-export default genresArr
+export default genresArr;

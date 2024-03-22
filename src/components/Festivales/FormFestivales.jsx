@@ -10,7 +10,6 @@ import citiesArr from "../../utils/ citiesArr";
 
 function FormFestivales() {
   const [name, setName] = useState("");
-  //const [image, setImage] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [city, setCity] = useState("");
@@ -90,7 +89,6 @@ function FormFestivales() {
     service
       .post("/festivales", newFestival)
       .then((response) => {
-        //console.log(response.data) //--> cambiar la response en backend para que me de el Id del festival que acabo de crear. ¿cómo?
         navigate(`/festivales/detalle/${response.data}`);
       })
       .catch((error) => {
@@ -100,46 +98,48 @@ function FormFestivales() {
 
   return (
     <div>
+      <br />
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Form.Label>Nombre</Form.Label>
+          <Form.Label><strong>Nombre</strong></Form.Label>
           <Form.Control
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </FormGroup>
-
+<br />
         <FormGroup>
-          <Form.Label>Imagen</Form.Label>
+          <Form.Label><strong>Imagen</strong></Form.Label>
           <Form.Control
             type="file"
             name="image"
             onChange={handleFileUpload}
             disabled={isUploading}
           />
+          <br />
         </FormGroup>
         {isUploading ? <h3>Subiendo la imagen...</h3> : null}
         <FormGroup>
-          <Form.Label>Fecha de inicio</Form.Label>
+          <Form.Label><strong>Fecha de inicio</strong></Form.Label>
           <Form.Control
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Fecha de fin</Form.Label>
+          <Form.Label><strong>Fecha de fin</strong></Form.Label>
           <Form.Control
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Ciudad</Form.Label>
+          <Form.Label><strong>Ciudad</strong></Form.Label>
           <Form.Select
             type="text"
             placeholder="Ciudad"
@@ -153,9 +153,9 @@ function FormFestivales() {
             ))}
           </Form.Select>
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Comunidad Autónoma</Form.Label>
+          <Form.Label><strong>Comunidad Autónoma</strong></Form.Label>
           <Form.Select
             type="text"
             placeholder="Comunidad Autónoma"
@@ -183,9 +183,9 @@ function FormFestivales() {
             <option value="Melilla"> Melilla </option>
           </Form.Select>
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Artistas principales:</Form.Label>
+          <Form.Label><strong>Artistas principales</strong></Form.Label>
           <Form.Control
             type="text"
             value={artists}
@@ -193,12 +193,12 @@ function FormFestivales() {
             onChange={(e) => setArtists(e.target.value)}
           />
         </FormGroup>
-
-        <FormGroup>
-          <Form.Label>Géneros</Form.Label>
+        <br />
+        <FormGroup >
+          <Form.Label><strong>Géneros</strong></Form.Label>
           {genresArr.map((eachGenre) => (
-            <div key={`${eachGenre}`} className="mb-3">
-              <Form.Check
+            <div key={`${eachGenre}`} className="mb-3" style={{justifyContent: "flex-start"}}>
+              <Form.Check 
                 type="checkbox"
                 id={`${eachGenre}`}
                 label={`${eachGenre}`}
@@ -208,18 +208,18 @@ function FormFestivales() {
             </div>
           ))}
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Precio base</Form.Label>
+          <Form.Label><strong>Precio base</strong></Form.Label>
           <Form.Control
             type="number"
             value={minPrize}
             onChange={(e) => setMinPrize(e.target.value)}
           />
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>¿Cuenta con zona de camping?</Form.Label>
+          <Form.Label><strong>¿Cuenta con zona de camping?</strong></Form.Label>
           <Form.Select
             type="text"
             value={campingArea}
@@ -229,16 +229,16 @@ function FormFestivales() {
             <option value="true"> Sí </option>
           </Form.Select>
         </FormGroup>
-
+        <br />
         <FormGroup>
-          <Form.Label>Más información</Form.Label>
+          <Form.Label><strong>Más información</strong></Form.Label>
           <Form.Control
             as="textarea"
             value={extraInfo}
             onChange={(e) => setExtraInfo(e.target.value)}
           />
         </FormGroup>
-
+        <br />
         <Button type="submit">Añadir</Button>
       </Form>
     </div>

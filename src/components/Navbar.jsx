@@ -14,27 +14,26 @@ function MainNavbar() {
     <Navbar
       expand="lg"
       className="bg-body-tertiary"
-      sticky="top"
+      fixed="top"
+      bg="dark"
+      data-bs-theme="dark"
       style={{ backgroundColor: "green" }}
     >
-      <Container style={{ display: "flex", justifyContent: "flex-start" }}>
+      <Container style={{ display: "flex", justifyContent: "flex-start"}}>
         <Nav>
-          <Link to={"/"} style={{ margin: "5px", color: "white" }}>
-            Home
+          <Link to={"/"} style={{ margin: "5px", color: "white", textDecoration: "none" }}>
+            EnVivo
           </Link>{" "}
-          <Link to={"/festivales"} style={{ margin: "5px", color: "white" }}>
+          <Link to={"/festivales"} style={{ margin: "5px", color: "white", textDecoration: "none" }}>
             Festivales
           </Link>
-          {userRole === "user" || userRole === "admin" ? null : (
-            <Link to={"/registro"} style={{ margin: "5px", color: "white" }}>
+          {/*{userRole === "user" || userRole === "admin" ? null : ( */}
+            <Link to={"/registro"} style={{ margin: "5px", color: "white", textDecoration: "none" }}>
               Registro
             </Link>
-          )}
-          <Link to={"/acceso"} style={{ margin: "5px", color: "white" }}>
+          {/*)}*/}
+          <Link to={"/acceso"} style={{ margin: "5px", color: "white", textDecoration: "none" }}>
             Acceso
-          </Link>
-          <Link to={"/perfil"} style={{ margin: "5px", color: "white" }}>
-            Perfil
           </Link>
         </Nav>
       </Container>

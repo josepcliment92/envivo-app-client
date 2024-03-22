@@ -9,15 +9,15 @@ import { Link } from "react-router-dom";
 import FormReseñas from "../components/Reseñas/FormReseñas";
 import CartaReseña from "../components/Reseñas/CartaReseña";
 import Card from "react-bootstrap/Card";
-import { useContext } from "react"
-import { AuthContext } from "../context/auth.context"
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.context";
 
 function DetallesFestival() {
   const [festival, setFestival] = useState(null);
   const [reseñas, setReseñas] = useState([]);
   const [verFormReseñas, setVerFormReseñas] = useState(false);
 
-  const { userRole } = useContext(AuthContext)
+  const { userRole } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -71,11 +71,18 @@ function DetallesFestival() {
       >
         <Card>
           <Card.Body className="d-grid gap-2">
-
-          {userRole === "user" || userRole === "admin" ? <Button onClick={handleToggleFormReseñas}>
-              ¡Danos tu opinión del festival!
-            </Button> : null}
-
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              {userRole === "user" || userRole === "admin" ? (
+                <Button
+                  style={{
+                    width: "350px"
+                  }}
+                  onClick={handleToggleFormReseñas}
+                >
+                  ¡Danos tu opinión del festival!
+                </Button>
+              ) : null}
+            </div>
             {verFormReseñas && (
               <FormReseñas
                 festivalId={festival._id}

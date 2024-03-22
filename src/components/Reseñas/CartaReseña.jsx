@@ -44,27 +44,42 @@ function CartaReseña(props) {
 
   return (
     <div>
+      <h3>Reseñas</h3>
       <Card>
         <Card.Body>
-          <Card.Title> {username} </Card.Title>
+          <Card.Title style={{ textDecoration: "underline" }}>
+            {" "}
+            {username}{" "}
+          </Card.Title>
           <Card.Text>
-            <strong>Lo que más te ha gustado:</strong>{" "}
+            <strong>Lo que más te ha gustado:</strong> <br />
             {props.eachReseñaYourFavouriteThing}
           </Card.Text>
           <Card.Text>
-            <strong>¿Qué mejorarías?</strong>{" "}
+            <strong>¿Qué mejorarías?</strong> <br />
             {props.eachReseñaWhatWouldYouImprove}
           </Card.Text>
           <Card.Text>
-            <strong>Opinión Global:</strong> {props.eachReseñaMoreObservations}
+            <strong>Opinión Global:</strong>
+            <br />
+            {props.eachReseñaMoreObservations}
           </Card.Text>
           <Card.Text>
-            <strong>Puntuación final:</strong> {props.eachReseñaOverallRating}
+            <strong>Puntuación final:</strong>
+            <br />
+            {props.eachReseñaOverallRating}
           </Card.Text>
         </Card.Body>
-        {userEmail === usernameEmail || userRole === "admin" ? (
-          <Button onClick={handleToggleFormEditReseñas}>Edita la reseña</Button>
-        ) : null}
+        <div style={{ justifyContent: "center" }}>
+          {userEmail === usernameEmail || userRole === "admin" ? (
+            <Button
+              onClick={handleToggleFormEditReseñas}
+              style={{ width: "320px" }}
+            >
+              Edita la reseña
+            </Button>
+          ) : null}
+        </div>
         <br />
         {verFormEditReseñas === true ? (
           <div>
@@ -74,11 +89,10 @@ function CartaReseña(props) {
               moreObservations={props.eachReseña.moreObservations}
               overallRating={props.eachReseña.overallRating}
               reseñaId={props.eachReseñaId}
-              //setReseñas={props.setReseñas}
               getReseñasData={props.getReseñasData}
               handleToggleFormEditReseñas={props.handleToggleFormEditReseñas}
             />
-            <Button onClick={handleDelete}> Borra la reseña </Button>
+            <Button variant="danger" style={{marginBottom: "15px"}}onClick={handleDelete}> Borra la reseña </Button>
           </div>
         ) : null}
       </Card>

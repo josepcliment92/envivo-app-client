@@ -1,7 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import service from "../services/config.services";
+import { Button, Form } from "react-bootstrap";
+import { FormLabel, FormControl } from "react-bootstrap";
 
 function Signup() {
   const navigate = useNavigate();
@@ -44,9 +45,9 @@ function Signup() {
   return (
     <div>
       <h1>Regístrate en EnVivo</h1>
-      <form onSubmit={handleSignup}>
-        <label> Nombre: </label>
-        <input
+      <Form onSubmit={handleSignup}>
+        <FormLabel> Nombre </FormLabel>
+        <FormControl
           type="text"
           name="name"
           value={name}
@@ -55,8 +56,8 @@ function Signup() {
 
         <br />
 
-        <label> Email: </label>
-        <input
+        <FormLabel> Email </FormLabel>
+        <FormControl
           type="email"
           name="email"
           value={email}
@@ -65,8 +66,8 @@ function Signup() {
 
         <br />
 
-        <label> Contraseña: </label>
-        <input
+        <FormLabel> Contraseña </FormLabel>
+        <FormControl
           type="password"
           name="password"
           value={password}
@@ -77,8 +78,8 @@ function Signup() {
 
         <p>{errorMessage}</p>
 
-        <button type="submit">Registarse</button>
-      </form>
+        <Button type="submit">Registrarse</Button>
+      </Form>
     </div>
   );
 }
